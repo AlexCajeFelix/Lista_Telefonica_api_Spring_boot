@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📞 **Phonebook API**
 **English** | **Português**
 
@@ -98,3 +99,11 @@ A **Phonebook API** é um serviço web RESTful construído com **Spring Boot** p
 O projeto usa **Flyway** para gerenciar versionamento e migrações do banco de dados. Novas alterações no banco de dados podem ser adicionadas à pasta `src/main/resources/db/migration` como arquivos `.sql`, e o Flyway aplicará automaticamente durante a inicialização da aplicação.
 
 
+=======
+📞 Phonebook API
+English | Português
+
+🇺🇸 English
+📝 Overview
+The Phonebook API is a RESTful web service built using Spring Boot to manage phonebook contacts. It supports basic CRUD operations: Create, Read, Update, and Delete. The API uses Lombok for simplifying Java code, Flyway for database migrations, and JPA/Hibernate for database interaction. Docker is used to containerize the application and MySQL serves as the database.
+>>>>>>> e127eb00c0310a2ca822aed3bc94a673c9cf251a
