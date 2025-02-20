@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  springboot-app:
+    image: alexcaje/spring:2.0
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/testdb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=er481620
+    depends_on:
+      - mysql
+    networks:
+      - minha-rede
+
+  mysql:
+    image: alexcaje/mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: er481620
+      MYSQL_DATABASE: testdb
+    ports:
+      - "3307:3306"
+    networks:
+      - minha-rede
+
+networks:
+  minha-rede:
+    driver: bridge
