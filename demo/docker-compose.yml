@@ -2,23 +2,27 @@ version: '3'
 
 services:
   springboot-app:
-    image: alexcaje/spring:2.0
+    image: alex/teste:50
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/testdb
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/agenda
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=er481620
     depends_on:
-      - mysql
+      - db
     networks:
       - minha-rede
+    volumes:
+      - ./src:/app/src  # Mapeando a pasta de código-fonte local para o container
+      - ./target:/app/target  # Mapeando a pasta de build (JAR) para o container
+      - ./logs:/app/logs  # Opcional: se quiser mapear uma pasta de logs
 
-  mysql:
-    image: alexcaje/mysql:8
+  db:
+    image: alexcaje/mysl:8
     environment:
       MYSQL_ROOT_PASSWORD: er481620
-      MYSQL_DATABASE: testdb
+      MYSQL_DATABASE: agenda
     ports:
       - "3307:3306"
     networks:

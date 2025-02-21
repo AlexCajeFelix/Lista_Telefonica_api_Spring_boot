@@ -1,6 +1,8 @@
-CREATE TABLE contatos (
+CREATE DATABASE IF NOT EXISTS agenda;
+USE agenda;
+
+CREATE TABLE IF NOT EXISTS clientes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    numero VARCHAR(15) NOT NULL
+    telefone VARCHAR(20)
 );
-S
