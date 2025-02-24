@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.Contatos.Contatos;
-import com.example.demo.Dependecy_Inject.Di;
+import com.example.demo.Repository.ContactsRepository;
+import com.example.demo.Repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ import jakarta.validation.Valid;
 @RestController
 public class MyController {    
     @Autowired
-    private Di contatos_di;
+    private ContactsRepository contatos_di;
 
     @PostMapping("/contato")
     @Transactional(rollbackOn = Exception.class)
@@ -34,7 +35,6 @@ public class MyController {
         contatos_di.save(cont);  
         return ResponseEntity.created(uri).body(cont);
     }
-
 
 
     @GetMapping("/contato") //usar o paginable pra visualizar os contatos
@@ -59,10 +59,8 @@ public class MyController {
     public ResponseEntity<Contatos> atualizarContato(@PathVariable Long id, @RequestBody Contatos contato) {
         var contatoExistente = contatos_di.findById(id)
                 .orElseThrow(() -> new RuntimeException("Contato nao encontrado"));
-
         contatoExistente.setNome(contato.getNome());
         contatoExistente.setNumero(contato.getNumero());
-
         contatos_di.save(contatoExistente);
         return ResponseEntity.ok(contatoExistente);
     }
@@ -75,7 +73,7 @@ public class MyController {
     public ResponseEntity<Contatos> deletarContato(@PathVariable Long id) {
         Contatos contatoExistente = contatos_di.findById(id)
                 .orElseThrow(() -> new RuntimeException("Contato não encontrado"));
-        
+
         contatos_di.delete(contatoExistente); 
         return ResponseEntity.noContent().build();
     }

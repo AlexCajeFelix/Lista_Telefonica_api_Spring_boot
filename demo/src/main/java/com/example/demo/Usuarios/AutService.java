@@ -7,17 +7,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Dependecy_Inject.Di2;
+import com.example.demo.Repository.UserRepository;
 
 @Service
 public class AutService implements UserDetailsService{
 
     @Autowired
-    private Di2 di2;
+    private UserRepository userRepository;
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return di2.findByLogin(username);
+        return userRepository.findByLogin(username);
     }
    
     

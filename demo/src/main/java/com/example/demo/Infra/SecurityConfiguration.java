@@ -3,7 +3,6 @@ package com.example.demo.Infra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,26 +17,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
     @Autowired
-    private Filtro filtro;
+    private FilterService FilterService;
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http
-            .csrf().disable()  // Desabilita CSRF para APIs stateless
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // Sem sessões no lado do servidor
+            .csrf().disable()  
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)  
             .and()
-            .authorizeHttpRequests()  // Substitui authorizeRequests() por authorizeHttpRequests()
-            .requestMatchers("/aut").permitAll()  // Endpoints permitidos sem autenticação
+            .authorizeHttpRequests()  
+            .requestMatchers("/aut").permitAll()  
             .anyRequest().authenticated() 
             .and()
-            .addFilterBefore(filtro, UsernamePasswordAuthenticationFilter.class) // Todos os outros endpoints requerem autenticação
-            
+            .addFilterBefore(FilterService, UsernamePasswordAuthenticationFilter.class) 
             .build();
 }
-
-    
-    
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();

@@ -1,6 +1,5 @@
 package com.example.demo.TokenService;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -11,14 +10,12 @@ import com.example.demo.Usuarios.Usuarios;
 @Service
 public class TokenService {
 
-   
+    //receber de uma variavel de ambiente 
+    //so pra teste 
     private String secret = "123456";
     public String gerarToken(Usuarios usuario) {
         try {
-         
             var algorithm = Algorithm.HMAC256(secret);  
-
-            
             return JWT.create()
                     .withIssuer("apiAgenda")  
                     .withSubject(usuario.getLogin())  
@@ -29,8 +26,6 @@ public class TokenService {
             System.out.println(exception.getMessage());  
             return null;
         }
-
-
     }
 
     public String getSubject(String token) {
